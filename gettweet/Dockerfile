@@ -15,4 +15,4 @@ RUN pip install -r ./requirements.txt
 # upload scripts
 COPY ./app.py /
 
-WORKDIR /app
+WORKDIR /gettweet

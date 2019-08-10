@@ -1,11 +1,11 @@
 version: '3.3'
 
 services:
-  model:
+  backend:
     build:
       context: ./gettweet
     volumes:
-      - ./gettweet:/app
+      - ./gettweet:/gettweet
     restart: "no"
     ports:
       - "5000:5000"
