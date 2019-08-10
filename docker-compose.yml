@@ -1,0 +1,16 @@
+version: '3.3'
+
+services:
+  model:
+    build:
+      context: ./gettweet
+    volumes:
+      - ./gettweet:/app
+    restart: "no"
+    ports:
+      - "5000:5000"
+    entrypoint:
+      - flask
+      - run
+      - --host=0.0.0.0
+    env_file: .env
