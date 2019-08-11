@@ -1,0 +1,10 @@
+version: '3.3'
+
+services:
+  sut:
+    build: 
+      context: ./gettweet
+      dockerfile: Dockerfile.test
+    volumes:
+      - ./gettweet:/gettweet
+    env_file: .env

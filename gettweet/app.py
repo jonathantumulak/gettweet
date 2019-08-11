@@ -22,8 +22,9 @@ def get_tweets_by_hashtag_route(hashtag):
         A list of tweets with the searched hashtag in JSON format.
 
     """
-    response = get_tweets_by_hashtag(hashtag, request.args.get('limit', 30))
-    return jsonify(response)
+    response, code = get_tweets_by_hashtag(
+        hashtag, request.args.get('limit', 30))
+    return jsonify(response), code
 
 @app.route('/users/<string:username>', methods=['GET'])
 def get_tweets_by_user_route(username):
@@ -39,5 +40,6 @@ def get_tweets_by_user_route(username):
     Returns:
         A list of tweets by a user in JSON format.
     """
-    response = get_tweets_by_user(username, request.args.get('limit', 30))
-    return jsonify(response)
+    response, code = get_tweets_by_user(
+        username, request.args.get('limit', 30))
+    return jsonify(response), code

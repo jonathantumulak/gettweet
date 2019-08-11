@@ -13,6 +13,12 @@ TWITTER_API_SECRET_KEY = env.get('TWITTER_API_SECRET_KEY')
 TWITTER_ACCESS_TOKEN = env.get('TWITTER_ACCESS_TOKEN')
 TWITTER_ACCESS_TOKEN_SECRET = env.get('TWITTER_ACCESS_TOKEN_SECRET')
 
+if not (TWITTER_API_KEY and TWITTER_API_SECRET_KEY and TWITTER_ACCESS_TOKEN and
+        TWITTER_ACCESS_TOKEN_SECRET):
+    raise KeyError('TWITTER_API_KEY, TWITTER_API_SECRET_KEY, '
+                   'TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET must '
+                   'be set.')
+
 # setup authentication for requests
 auth = OAuth1(
     TWITTER_API_KEY,
@@ -61,7 +67,7 @@ def send_request(url, params):
     """
 
     response = requests.get(url, params=params, auth=auth)
-    return response.json()
+    return response.json(), response.status_code
 
 def get_tweets_by_hashtag(hashtag, max_tweets=30):
     """This function will fetch the tweets with the hashtag
@@ -82,7 +88,9 @@ def get_tweets_by_hashtag(hashtag, max_tweets=30):
         'include_entities': True
     }
 
-    return format_data(send_request(url, params).get('statuses'))
+    response, code = send_request(url, params)
+    return (format_data(response.get('statuses', {}))
+            if not code != 200 else response, code)
 
 def get_tweets_by_user(username, max_tweets=30):
     """This function will fetch the tweets from a user
@@ -104,4 +112,6 @@ def get_tweets_by_user(username, max_tweets=30):
         'include_rts': True
     }
 
-    return format_data(send_request(url, params))
+    response, code = send_request(url, params)
+    return (format_data(response)
+            if not code != 200 else response, code)
