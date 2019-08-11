@@ -12,7 +12,10 @@ Optional `limit` to specify how many tweets you want to fetch.
 
 Sample
 ```
-curl -H "Accept: application/json" -X GET http://localhost:5000/hashtags/donaldtrump?limit=30
+$ curl -H "Accept: application/json" -X GET http://localhost:5000/hashtags/donaldtrump?limit=30
+```
+```
+Response:
 [
   {
     "account": {
@@ -43,7 +46,11 @@ Optional `limit` to specify how many tweets you want to fetch.
 
 Sample
 ```
-curl -H "Accept: application/json" -X GET http://localhost:5000/users/realdonaldtrump?limit=30
+$ curl -H "Accept: application/json" -X GET http://localhost:5000/users/realdonaldtrump?limit=30
+```
+
+```
+Response:
 [
    {
     "account": {
@@ -72,7 +79,7 @@ To run the project:
 git clone git@github.com:jonathantumulak/gettweet.git
 cd gettweet
 ```
-3. Create a .env file from the contents of env.example. Replace the following keys with your own API Keys. Create a twitter app from [here](https://developer.twitter.com/en/apps). You can use the provided one if you dont have one.
+3. Create a `.env` file from the contents of `env.example`. Replace the following keys with your own API Keys. Create a twitter app from [here](https://developer.twitter.com/en/apps). You can use the one provided in `env.example` if you dont have one.
 ```
 TWITTER_API_KEY=...
 TWITTER_API_SECRET_KEY=...
@@ -94,4 +101,11 @@ $ docker-compose up -d
 To stop the project running in the background:
 ```
 $ docker-compose stop
+```
+
+## Tests
+
+To run tests:
+```
+$ docker-compose -f docker-compose.test.yml up --build
 ```
